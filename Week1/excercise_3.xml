@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+bool flag0 = false;
+bool flag1 = false;
+
+bool turn = true;
+</declaration>
+	<template>
+		<name x="5" y="5">Process1</name>
+		<declaration>// Place local declarations here.
+</declaration>
+		<location id="id0" x="161" y="0">
+		</location>
+		<location id="id1" x="161" y="136">
+		</location>
+		<location id="id2" x="365" y="0">
+		</location>
+		<init ref="id1"/>
+		<transition id="id3">
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="guard" x="59" y="42">turn != true</label>
+			<label kind="assignment" x="59" y="59">flag1 = true</label>
+		</transition>
+		<transition id="id4">
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="assignment" x="331" y="85">flag1 = false</label>
+			<nail x="365" y="144"/>
+			<nail x="272" y="144"/>
+			<nail x="177" y="144"/>
+		</transition>
+		<transition id="id5">
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="guard" x="212" y="-34">flag0 != true</label>
+			<label kind="assignment" x="221" y="-17">turn = true</label>
+		</transition>
+	</template>
+	<template>
+		<name>Process0</name>
+		<declaration>
+</declaration>
+		<location id="id6" x="-51" y="-136">
+		</location>
+		<location id="id7" x="161" y="-136">
+		</location>
+		<location id="id8" x="161" y="76">
+		</location>
+		<init ref="id6"/>
+		<transition id="id9">
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<label kind="guard" x="0" y="-170">turn == true</label>
+			<label kind="assignment" x="8" y="-136">flag0 = true</label>
+		</transition>
+		<transition id="id10">
+			<source ref="id8"/>
+			<target ref="id6"/>
+			<label kind="assignment" x="-85" y="76">flag0 = false</label>
+			<nail x="153" y="76"/>
+			<nail x="153" y="76"/>
+			<nail x="-51" y="76"/>
+		</transition>
+		<transition id="id11">
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="guard" x="170" y="-68">flag1 != true</label>
+			<label kind="assignment" x="178" y="-51">turn = false</label>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+P0 = Process0();
+P1 = Process1();
+// List one or more processes to be composed into a system.
+system P0, P1;
+</system>
+	<queries>
+		<query>
+			<formula>E&lt;&gt;deadlock</formula>
+			<comment/>
+			<result outcome="failure" type="quality" timestamp="2024-04-30 14:36:37 +0200">
+			</result>
+		</query>
+	</queries>
+</nta>
