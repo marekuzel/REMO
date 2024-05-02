@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
+<nta>
+	<declaration>// 2D Solitare game
+
+//array representing playing field
+// 1 represents black pieces
+// 0 represent an empty space
+// 2 represent white pieces
+int array[7] = { 1,1,1,0,2,2,2 };
+int win[7] = { 2,2,2,0,1,1,1 };
+
+int counter = 0;</declaration>
+	<template>
+		<name x="5" y="5">Black_piece</name>
+		<parameter>int input</parameter>
+		<declaration>// Place local declarations here.
+
+int pointer = 0;</declaration>
+		<location id="id0" x="238" y="42">
+		</location>
+		<location id="id1" x="76" y="8">
+		</location>
+		<init ref="id1"/>
+		<transition id="id2">
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="assignment" x="94" y="25">pointer = input</label>
+		</transition>
+		<transition id="id3">
+			<source ref="id0"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-204" y="-153">(pointer &lt;= 4)&amp;&amp;(array[pointer +1] == 2) &amp;&amp;
+(array[pointer+1+1] == 0)</label>
+			<label kind="assignment" x="-399" y="289">(array[pointer+1+1] = 1),
+(array[pointer] = 0),
+(pointer+=2),
+counter += 1</label>
+			<nail x="238" y="-110"/>
+			<nail x="-331" y="-110"/>
+			<nail x="-331" y="280"/>
+			<nail x="-331" y="280"/>
+		</transition>
+		<transition id="id4">
+			<source ref="id0"/>
+			<target ref="id0"/>
+			<label kind="guard" x="256" y="-68">pointer &lt;= 5 and array[pointer + 1] == 0</label>
+			<label kind="assignment" x="255" y="289">(array[pointer+1] = 1),
+(array[pointer] = 0),
+(pointer+=1),
+counter += 1</label>
+			<nail x="238" y="-110"/>
+			<nail x="561" y="-110"/>
+			<nail x="561" y="280"/>
+			<nail x="93" y="280"/>
+			<nail x="93" y="280"/>
+			<nail x="17" y="280"/>
+			<nail x="399" y="161"/>
+			<nail x="255" y="51"/>
+		</transition>
+		<transition id="id5">
+			<source ref="id0"/>
+			<target ref="id0"/>
+			<label kind="guard" x="144" y="144">pointer &lt;= 5 and (array[pointer+1] == 1)</label>
+			<nail x="238" y="144"/>
+			<nail x="178" y="119"/>
+		</transition>
+	</template>
+	<template>
+		<name>White_piece</name>
+		<parameter>int input</parameter>
+		<declaration>// Place local declarations here.
+int pointer = 0;</declaration>
+		<location id="id6" x="238" y="42">
+		</location>
+		<location id="id7" x="-8" y="76">
+		</location>
+		<init ref="id7"/>
+		<transition id="id8">
+			<source ref="id7"/>
+			<target ref="id6"/>
+			<label kind="assignment" x="10" y="59">pointer = input</label>
+		</transition>
+		<transition id="id9">
+			<source ref="id6"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-204" y="-153">(pointer &gt;= 2)&amp;&amp;(array[pointer-1] == 1) &amp;&amp;
+(array[pointer-2] == 0)</label>
+			<label kind="assignment" x="-399" y="289">(array[pointer-2] = 2),
+(array[pointer] = 0),
+(pointer -= 2),
+counter += 1</label>
+			<nail x="238" y="-110"/>
+			<nail x="-331" y="-110"/>
+			<nail x="-331" y="280"/>
+			<nail x="-102" y="-59"/>
+		</transition>
+		<transition id="id10">
+			<source ref="id6"/>
+			<target ref="id6"/>
+			<label kind="guard" x="621" y="-102">(pointer &gt;= 1) and array[pointer-1] == 0</label>
+			<label kind="assignment" x="620" y="255">(array[pointer-1] = 2),
+(array[pointer] = 0),
+(pointer -= 1),
+counter +=1</label>
+			<nail x="603" y="-144"/>
+			<nail x="926" y="-144"/>
+			<nail x="926" y="246"/>
+			<nail x="458" y="246"/>
+			<nail x="458" y="246"/>
+			<nail x="382" y="246"/>
+			<nail x="238" y="323"/>
+			<nail x="433" y="59"/>
+			<nail x="255" y="51"/>
+		</transition>
+		<transition id="id11">
+			<source ref="id6"/>
+			<target ref="id6"/>
+			<label kind="guard" x="144" y="144">(pointer &gt;= 1) &amp;&amp; (array[pointer-1] == 2)</label>
+			<nail x="238" y="144"/>
+			<nail x="178" y="119"/>
+		</transition>
+	</template>
+	<template>
+		<name>Template</name>
+		<location id="id12" x="0" y="0">
+		</location>
+		<location id="id13" x="425" y="51">
+			<name x="415" y="17">Final</name>
+		</location>
+		<init ref="id12"/>
+		<transition id="id14">
+			<source ref="id12"/>
+			<target ref="id13"/>
+			<label kind="guard" x="127" y="-17">array == win</label>
+		</transition>
+		<transition id="id15">
+			<source ref="id12"/>
+			<target ref="id12"/>
+			<label kind="guard" x="18" y="-195">array != win</label>
+			<nail x="0" y="-195"/>
+			<nail x="136" y="-127"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+P_white0 = White_piece(4);
+P_white1 = White_piece(5);
+P_white2 = White_piece(6);
+P_black0 = Black_piece(0);
+P_black1 = Black_piece(1);
+P_black2 = Black_piece(2);
+check = Template();
+
+// List one or more processes to be composed into a system.
+system P_white0, P_white1, P_white2, P_black0, P_black1, P_black2, check;
+</system>
+	<queries>
+		<query>
+			<formula>E&lt;&gt; check.Final and counter == 15
+</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2024-05-02 14:13:25 +0200">
+			</result>
+		</query>
+	</queries>
+</nta>
