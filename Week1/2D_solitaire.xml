@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
+<nta>
+	<declaration>// 2D Solitare game
+
+//array representing playing field
+// 1 represents black pieces
+// 0 represent an empty space
+// 2 represent white pieces
+// 3 represent nonexisting tile
+int array[5][5] = {{ 3,3,2,2,2 },{ 3,3,2,2,2 }, { 1,1,0,2,2 }, { 1,1,1,3,3 }, { 1,1,1,3,3} };
+
+int win[5][5] = {{ 3,3,1,1,1 },{ 3,3,1,1,1 }, { 2,2,0,1,1 }, { 2,2,2,3,3 }, { 2,2,2,3,3} };
+
+
+
+int counter = 0;</declaration>
+	<template>
+		<name x="5" y="5">Black_piece</name>
+		<parameter>int input_x, int input_y</parameter>
+		<declaration>// Place local declarations here.
+
+int p_x = 0;
+int p_y = 0;
+</declaration>
+		<location id="id0" x="255" y="51">
+		</location>
+		<location id="id1" x="-119" y="51">
+		</location>
+		<init ref="id1"/>
+		<transition id="id2">
+			<source ref="id0"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-339" y="85">(p_x &lt;= 2)&amp;&amp;
+(array[p_y][p_x+1] == 2)&amp;&amp;
+(array[p_y][p_x + 2] ==0)</label>
+			<label kind="assignment" x="-306" y="204">(array[p_y][p_x+2] = 1),
+array[p_y][p_x] = 0,
+p_x += 2,
+counter += 1</label>
+			<nail x="-357" y="187"/>
+			<nail x="-348" y="280"/>
+		</transition>
+		<transition id="id3">
+			<source ref="id0"/>
+			<target ref="id0"/>
+			<label kind="guard" x="450" y="76">(p_x &lt;= 3) &amp;&amp; (array[p_y][p_x + 1] == 0)</label>
+			<label kind="assignment" x="450" y="102">array[p_y][p_x] = 0,
+array[p_y][p_x+1] = 1,
+p_x += 1</label>
+			<nail x="441" y="51"/>
+			<nail x="441" y="187"/>
+			<nail x="255" y="187"/>
+		</transition>
+		<transition id="id4">
+			<source ref="id0"/>
+			<target ref="id0"/>
+			<label kind="guard" x="450" y="-110">(p_y &gt;= 1)&amp;&amp;(array[p_y - 1][p_x] == 0)</label>
+			<label kind="assignment" x="459" y="-85">array[p_y] [p_x] = 0,
+array[p_y-1][p_x] = 1,
+p_y = p_y - 1</label>
+			<nail x="255" y="-102"/>
+			<nail x="442" y="-102"/>
+			<nail x="442" y="51"/>
+		</transition>
+		<transition id="id5">
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="assignment" x="-85" y="25">p_x = input_x,
+p_y = input_y</label>
+		</transition>
+		<transition id="id6">
+			<source ref="id0"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-8" y="-365">(p_y &gt;= 2)&amp;&amp;(array[p_y -1][p_x] == 2) &amp;&amp;
+(array[p_y-2][p_x] == 0)</label>
+			<label kind="assignment" x="34" y="-289">(array[p_y-2][p_x] = 1),
+(array[p_y][p_x] = 0),
+(p_y-=2),
+counter += 1</label>
+			<nail x="255" y="-306"/>
+			<nail x="17" y="-306"/>
+			<nail x="-212" y="-187"/>
+			<nail x="-212" y="-17"/>
+		</transition>
+	</template>
+	<template>
+		<name>White_piece</name>
+		<parameter>int input_x, int input_y</parameter>
+		<declaration>int p_x = 0;
+int p_y = 0;</declaration>
+		<location id="id7" x="255" y="51">
+		</location>
+		<location id="id8" x="-119" y="51">
+		</location>
+		<init ref="id8"/>
+		<transition id="id9">
+			<source ref="id7"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-339" y="85">(p_x &gt;= 2)&amp;&amp;
+(array[p_y][p_x-1] == 1)&amp;&amp;
+(array[p_y][p_x - 2] ==0)</label>
+			<label kind="assignment" x="-306" y="204">(array[p_y][p_x-2]) = 2,
+array[p_y][p_x] = 0,
+p_x -= 2,
+counter += 1</label>
+			<nail x="-391" y="119"/>
+			<nail x="-391" y="272"/>
+		</transition>
+		<transition id="id10">
+			<source ref="id7"/>
+			<target ref="id7"/>
+			<label kind="guard" x="450" y="85">(p_x &gt;= 1) &amp;&amp; (array[p_y][p_x - 1] == 0)</label>
+			<label kind="assignment" x="450" y="110">array[p_y][p_x] = 0,
+array[p_y][p_x-1] = 2,
+p_x -= 1</label>
+			<nail x="441" y="51"/>
+			<nail x="441" y="187"/>
+			<nail x="254" y="178"/>
+		</transition>
+		<transition id="id11">
+			<source ref="id7"/>
+			<target ref="id7"/>
+			<label kind="guard" x="273" y="-136">(p_y &lt;= 3)&amp;&amp;(array[p_y + 1][p_x] == 0)</label>
+			<label kind="assignment" x="459" y="-85">array[p_y] [p_x] = 0,
+array[p_y+1][p_x] = 2,
+p_y = p_y + 1</label>
+			<nail x="255" y="-102"/>
+			<nail x="442" y="-102"/>
+			<nail x="442" y="51"/>
+		</transition>
+		<transition id="id12">
+			<source ref="id8"/>
+			<target ref="id7"/>
+			<label kind="assignment" x="-85" y="25">p_x = input_x,
+p_y = input_y</label>
+		</transition>
+		<transition id="id13">
+			<source ref="id7"/>
+			<target ref="id7"/>
+			<label kind="guard" x="-264" y="-518">(p_y &lt;= 2)&amp;&amp;(array[p_y+1][p_x] == 1) &amp;&amp;
+(array[p_y+2][p_x] == 0)</label>
+			<label kind="assignment" x="-459" y="-76">(array[p_y+2][p_x] = 2),
+(array[p_y][p_x] = 0),
+(p_y+=2),
+counter += 1</label>
+			<nail x="178" y="-475"/>
+			<nail x="-391" y="-475"/>
+			<nail x="-391" y="-110"/>
+			<nail x="-391" y="-94"/>
+		</transition>
+	</template>
+	<template>
+		<name>Template</name>
+		<location id="id14" x="0" y="0">
+		</location>
+		<location id="id15" x="425" y="51">
+			<name x="415" y="17">Final</name>
+		</location>
+		<init ref="id14"/>
+		<transition id="id16">
+			<source ref="id14"/>
+			<target ref="id15"/>
+			<label kind="guard" x="127" y="-17">array == win</label>
+		</transition>
+		<transition id="id17">
+			<source ref="id14"/>
+			<target ref="id14"/>
+			<label kind="guard" x="18" y="-195">array != win</label>
+			<nail x="0" y="-195"/>
+			<nail x="136" y="-127"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+P_white0 = White_piece(2,0);
+P_white1 = White_piece(3,0);
+P_white2 = White_piece(4,0);
+P_white3 = White_piece(2,1);
+P_white4 = White_piece(3,1);
+P_white5 = White_piece(4,1);
+P_white6 = White_piece(3,2);
+P_white7 = White_piece(4,2);
+
+P_black0 = Black_piece(0,2);
+P_black1 = Black_piece(1,2);
+P_black2 = Black_piece(0,3);
+P_black3 = Black_piece(1,3);
+P_black4 = Black_piece(2,3);
+P_black5 = Black_piece(0,4);
+P_black6 = Black_piece(1,4);
+P_black7 = Black_piece(2,4);
+
+check = Template();
+
+// List one or more processes to be composed into a system.
+system P_white0, P_white1, P_white2,P_white3, P_white4, P_white5, P_white6, P_white7, P_black0, P_black1, P_black2,P_black3, P_black4, P_black5, P_black6, P_black7, check;
+</system>
+	<queries>
+		<query>
+			<formula>E&lt;&gt; check.Final</formula>
+			<comment/>
+		</query>
+	</queries>
+</nta>
