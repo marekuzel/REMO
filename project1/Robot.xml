@@ -16,16 +16,15 @@ int y = 2;
 //state memory
 int mem[4][3][3] = {{{0,0,0},{0,0,0}, {0,0,0}},{{0,0,0},{0,0,0}, {0,0,0}},{{0,0,0},{0,0,0}, {0,0,0}}, {{0,0,0},{0,0,0}, {0,0,0}}};
 
-</declaration>
-	<template>
-		<name x="9" y="9">Robot</name>
-		<declaration>// 0 is equivalent to facing north
+// 0 is equivalent to facing north
 // 1 is equivalent to facing east
 // 2 is equivalent to facing south
 // 3 is equivalent to facing west
 int facing = 0;
-
-int count = 0;
+</declaration>
+	<template>
+		<name x="9" y="9">Robot</name>
+		<declaration>int count = 0;
 
 
 //bool contains(const mem &amp;, int x, int y, int face)
@@ -121,7 +120,7 @@ mem[facing][x][y] += 1</label>
 		<transition id="id12">
 			<source ref="id10"/>
 			<target ref="id11"/>
-			<label kind="guard" x="-17" y="59">(world == win)&amp;&amp;(x==0)&amp;&amp;(y==2)&amp;&amp;memCheck()!= false</label>
+			<label kind="guard" x="-17" y="59">(world == win)&amp;&amp;(x==0)&amp;&amp;(y==2)&amp;&amp;memCheck()!= false &amp;&amp; facing == 0</label>
 		</transition>
 		<transition id="id13">
 			<source ref="id10"/>
@@ -142,7 +141,7 @@ system P_1, P_w;
 			<formula>E&lt;&gt;P_w.winning_state</formula>
 			<comment/>
 			<option key="--diagnostic" value="1"/>
-			<result outcome="success" type="quality" timestamp="2024-05-06 16:28:22 +0200">
+			<result outcome="success" type="quality" timestamp="2024-05-06 16:38:01 +0200">
 				<option key="--diagnostic" value="1"/>
 			</result>
 		</query>
