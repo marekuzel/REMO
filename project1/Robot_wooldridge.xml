@@ -14,12 +14,12 @@ int x = 1;
 int y = 0;
 
 //state memory
-int mem[4][3][3] = {{{1,1,0},{0,0,0}, {0,0,0}},{{1,0,0},{1,0,0}, {0,0,0}},{{0,0,0},{0,0,0}, {0,0,0}}, {{0,0,0},{0,0,0}, {0,0,0}}};
+int mem[4][3][3] = {{{1,0,0},{1,0,0}, {0,0,0}},{{1,1,0},{0,0,0}, {0,0,0}},{{0,0,0},{0,0,0}, {0,0,0}}, {{0,0,0},{0,0,0}, {0,0,0}}};
 
-// 0 is equivalent to facing north
-// 1 is equivalent to facing east
-// 2 is equivalent to facing south
-// 3 is equivalent to facing west
+// 0 is equivalent to facing up
+// 1 is equivalent to facing right
+// 2 is equivalent to facing down
+// 3 is equivalent to facing left
 int facing = 1;
 </declaration>
 	<template>
@@ -48,7 +48,7 @@ int facing = 1;
 			<target ref="id0"/>
 			<label kind="assignment" x="-314" y="-34">world[y][x] = 1,
 count += 1,
-mem[facing][x][y] += 1</label>
+mem[facing][y][x] += 1</label>
 		</transition>
 		<transition id="id5">
 			<source ref="id0"/>
@@ -73,7 +73,7 @@ mem[facing][x][y] += 1</label>
 			<target ref="id2"/>
 			<label kind="assignment" x="213" y="-25">facing = (facing += 1)%4,
 count+=1,
-mem[facing][x][y] += 1</label>
+mem[facing][y][x] += 1</label>
 			<nail x="204" y="-110"/>
 			<nail x="196" y="94"/>
 			<nail x="76" y="51"/>
