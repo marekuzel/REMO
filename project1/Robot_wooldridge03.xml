@@ -4,17 +4,17 @@
 	<declaration>// Place global declarations here.
 int height = 2;
 int width = 2;
-int world[3][3] = {{1,0,0},{1,0,0}, {0,0,0}};
+int world[3][3] = {{0,0,0},{1,0,0}, {0,0,0}};
 
 //wining condition
 int win [3][3] = {{1,1,1},{1,1,1},{1,1,1}};
 
 //robots coordinates
 int x = 0;
-int y = 0;
+int y = 1;
 
 //state memory
-int mem[4][3][3] = {{{1,0,0},{1,0,0}, {0,0,0}},{{0,0,0},{0,0,0}, {0,0,0}},{{0,0,0},{0,0,0}, {0,0,0}}, {{0,0,0},{0,0,0}, {0,0,0}}};
+int mem[4][3][3] = {{{0,0,0},{1,0,0}, {0,0,0}},{{0,0,0},{0,0,0}, {0,0,0}},{{0,0,0},{0,0,0}, {0,0,0}}, {{0,0,0},{0,0,0}, {0,0,0}}};
 
 // 0 is equivalent to facing up
 // 1 is equivalent to facing right
@@ -146,7 +146,7 @@ system P_1, P_w;
 			<formula>E&lt;&gt;P_w.winning_state</formula>
 			<comment/>
 			<option key="--diagnostic" value="1"/>
-			<result outcome="failure" type="quality" timestamp="2024-05-07 15:39:25 +0200">
+			<result outcome="success" type="quality" timestamp="2024-05-07 15:35:04 +0200">
 				<option key="--diagnostic" value="1"/>
 			</result>
 		</query>
