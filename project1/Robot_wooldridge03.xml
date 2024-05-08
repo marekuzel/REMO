@@ -41,6 +41,8 @@ bool memCheck() {
 //{
 //  return (exists(i:1000) mem[i][0]==x &amp;&amp; mem[i][1]==y &amp;&amp; mem[i][2] == face);
 //}
+int mcount = 0;
+int rcount = 0;
 </declaration>
 		<location id="id0" x="-59" y="0">
 		</location>
@@ -65,7 +67,8 @@ bool memCheck() {
 			<source ref="id1"/>
 			<target ref="id0"/>
 			<label kind="assignment" x="-314" y="-17">world[y][x] = 1,
-mem[facing][y][x] += 1</label>
+mem[facing][y][x] += 1,
+mcount++</label>
 		</transition>
 		<transition id="id7">
 			<source ref="id0"/>
@@ -90,7 +93,8 @@ mem[facing][y][x] += 1</label>
 			<target ref="id2"/>
 			<label kind="guard" x="-41" y="-89">memCheck()</label>
 			<label kind="assignment" x="213" y="-25">facing = (facing += 1)%4,
-mem[facing][y][x] += 1</label>
+mem[facing][y][x] += 1,
+rcount++</label>
 			<nail x="204" y="-110"/>
 			<nail x="196" y="94"/>
 			<nail x="76" y="51"/>
@@ -146,7 +150,7 @@ system P_1, P_w;
 			<formula>E&lt;&gt;P_w.winning_state</formula>
 			<comment/>
 			<option key="--diagnostic" value="1"/>
-			<result outcome="success" type="quality" timestamp="2024-05-07 15:35:04 +0200">
+			<result outcome="success" type="quality" timestamp="2024-05-08 14:56:58 +0200">
 				<option key="--diagnostic" value="1"/>
 			</result>
 		</query>
