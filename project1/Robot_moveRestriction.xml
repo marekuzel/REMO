@@ -149,14 +149,14 @@ system P_1, P_w;
 </system>
 	<queries>
 		<query>
-			<formula>E&lt;&gt;P_w.winning_state and P_1.rcount == 20 and P_1.mcount != 12 and P_1.mcount != 12</formula>
+			<formula>E&lt;&gt;P_w.winning_state and !((P_1.rcount == 20 and P_1.mcount==14)or(P_1.mcount==10 and P_1.rcount==16)or(P_1.mcount==12 and P_1.rcount==20))</formula>
 			<comment>at least 12, at most 20
 
 possible rotational values are 12, 16, 20
 
 E&lt;&gt;P_w.winning_state and P_1.rcount == 20 and P_1.mcount != 12 and P_1.mcount != 14</comment>
 			<option key="--diagnostic" value="1"/>
-			<result outcome="success" type="quality" timestamp="2024-05-08 14:53:00 +0200">
+			<result outcome="success" type="quality" timestamp="2024-05-08 16:07:31 +0200">
 				<option key="--diagnostic" value="1"/>
 			</result>
 		</query>

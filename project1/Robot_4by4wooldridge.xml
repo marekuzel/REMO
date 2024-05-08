@@ -1,35 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
 <nta>
-	<declaration>//trying mirrored solution for m10r16
-
-
-// Place global declarations here.
-int height = 2;
-int width = 2;
-int world[3][3] = {{0,0,0},{1,0,0}, {0,0,0}};
+	<declaration>// Place global declarations here.
+int height = 3;
+int width = 3;
+int world[4][4] = {{0,0,0,0},{0,0,0,0}, {0,0,0,0}, {0,0,0,0}};
 
 //wining condition
-int win [3][3] = {{1,1,1},{1,1,1},{1,1,1}};
+int win [4][4] = {{1,1,1,1},{1,1,1,1},{1,1,1,1},{1,1,1,1}};
 
 //robots coordinates
 int x = 0;
-int y = 1;
+int y = 3;
 
 //state memory
-int mem[4][3][3] = {{{0,0,0},{1,0,0}, {0,0,0}},{{0,0,0},{0,0,0}, {0,0,0}},{{0,0,0},{0,0,0}, {0,0,0}}, {{0,0,0},{0,0,0}, {0,0,0}}};
+int mem[4][4][4] = {{{0,0,0,0},{0,0,0,0}, {0,0,0,0}, {0,0,0,0}},{{0,0,0,0},{0,0,0,0}, {0,0,0,0}, {0,0,0,0}},{{0,0,0,0},{0,0,0,0}, {0,0,0,0}, {0,0,0,0}},{{0,0,0,0},{0,0,0,0}, {0,0,0,0}, {0,0,0,0}}};
 
 // 0 is equivalent to facing up
 // 1 is equivalent to facing right
 // 2 is equivalent to facing down
 // 3 is equivalent to facing left
-int facing = 0;
+int facing = 1;
 
 
 bool memCheck() {
     for (face : int[0,3]) {
-        for (x : int[0,2]) {
-            for (y : int[0,2]) {
+        for (x : int[0,3]) {
+            for (y : int[0,3]) {
                 if (mem[face][x][y] &gt; 1) {
                     return false;
                 }
@@ -44,23 +41,21 @@ bool memCheck() {
 //{
 //  return (exists(i:1000) mem[i][0]==x &amp;&amp; mem[i][1]==y &amp;&amp; mem[i][2] == face);
 //}
-int mcount = 0;
-int rcount = 0;
 </declaration>
 		<location id="id0" x="-59" y="0">
 		</location>
 		<location id="id1" x="-365" y="-25">
 		</location>
-		<location id="id2" x="59" y="42">
+		<location id="id2" x="51" y="42">
 		</location>
-		<location id="id3" x="127" y="255">
+		<location id="id3" x="0" y="204">
 			<committed/>
 		</location>
 		<init ref="id0"/>
 		<transition id="id4">
 			<source ref="id0"/>
 			<target ref="id3"/>
-			<label kind="guard" x="34" y="170">memCheck() == false</label>
+			<label kind="guard" x="-29" y="68">!memCheck()</label>
 		</transition>
 		<transition id="id5">
 			<source ref="id2"/>
@@ -69,14 +64,13 @@ int rcount = 0;
 		<transition id="id6">
 			<source ref="id1"/>
 			<target ref="id0"/>
-			<label kind="assignment" x="-314" y="-17">world[y][x] = 1,
-mem[facing][y][x] += 1,
-mcount++</label>
+			<label kind="assignment" x="-314" y="-34">world[y][x] = 1,
+mem[facing][y][x] += 1</label>
 		</transition>
 		<transition id="id7">
 			<source ref="id0"/>
 			<target ref="id1"/>
-			<label kind="guard" x="-688" y="-110">(facing == 3)&amp;&amp;(x &gt;= 1)&amp;&amp;memCheck()</label>
+			<label kind="guard" x="-688" y="-110">(facing == 3)&amp;&amp;(x &gt;= 1) &amp;&amp; memCheck()</label>
 			<label kind="assignment" x="-620" y="-85">x -= 1</label>
 			<nail x="-68" y="-8"/>
 			<nail x="-68" y="-323"/>
@@ -85,7 +79,7 @@ mcount++</label>
 		<transition id="id8">
 			<source ref="id0"/>
 			<target ref="id1"/>
-			<label kind="guard" x="-518" y="187">(facing == 2)&amp;&amp;(y&lt;= height-1)&amp;&amp;memCheck()</label>
+			<label kind="guard" x="-518" y="187">(facing == 2)&amp;&amp;(y&lt;= height-1) &amp;&amp; memCheck()</label>
 			<label kind="assignment" x="-501" y="204">y += 1</label>
 			<nail x="-365" y="213"/>
 			<nail x="-442" y="119"/>
@@ -96,8 +90,7 @@ mcount++</label>
 			<target ref="id2"/>
 			<label kind="guard" x="-41" y="-89">memCheck()</label>
 			<label kind="assignment" x="213" y="-25">facing = (facing += 1)%4,
-mem[facing][y][x] += 1,
-rcount++</label>
+mem[facing][y][x] += 1</label>
 			<nail x="204" y="-110"/>
 			<nail x="196" y="94"/>
 			<nail x="76" y="51"/>
@@ -105,7 +98,7 @@ rcount++</label>
 		<transition id="id10">
 			<source ref="id0"/>
 			<target ref="id1"/>
-			<label kind="guard" x="-255" y="102">facing == 1 &amp;&amp; x &lt;= width - 1&amp;&amp;memCheck()</label>
+			<label kind="guard" x="-255" y="102">facing == 1 &amp;&amp; x &lt;= width - 1 &amp;&amp; memCheck()</label>
 			<label kind="assignment" x="-229" y="119">x += 1</label>
 			<nail x="-170" y="60"/>
 			<nail x="-331" y="102"/>
@@ -132,7 +125,7 @@ rcount++</label>
 		<transition id="id14">
 			<source ref="id12"/>
 			<target ref="id13"/>
-			<label kind="guard" x="-17" y="59">(world == win)&amp;&amp;(x==0)&amp;&amp;(y==2)&amp;&amp;memCheck()!= false &amp;&amp; facing == 0</label>
+			<label kind="guard" x="-17" y="59">(world == win)&amp;&amp;(x==0)&amp;&amp;(y==3)&amp;&amp;memCheck()!= false &amp;&amp; facing == 0</label>
 		</transition>
 		<transition id="id15">
 			<source ref="id12"/>
@@ -150,12 +143,16 @@ system P_1, P_w;
 </system>
 	<queries>
 		<query>
-			<formula>E&lt;&gt;P_w.winning_state and P_1.rcount == 16</formula>
+			<formula>E&lt;&gt;P_w.winning_state</formula>
 			<comment/>
 			<option key="--diagnostic" value="1"/>
-			<result outcome="success" type="quality" timestamp="2024-05-08 15:43:04 +0200">
+			<result outcome="success" type="quality" timestamp="2024-05-08 15:29:36 +0200">
 				<option key="--diagnostic" value="1"/>
 			</result>
+		</query>
+		<query>
+			<formula/>
+			<comment/>
 		</query>
 	</queries>
 </nta>
