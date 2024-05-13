@@ -39,10 +39,12 @@ void delete_car(int length,int facing, int y, int x){
 void insert_truck(int length,int facing, int y, int x){
     if (facing == 0){
         world[y][x] = 1;
+        world[y][x+length-2] = 1;
         world[y][x+length-1] = 1;
     }
     else{
         world[y][x] = 1;
+        world[y+length-2][x] = 1;
         world[y+length-1][x] = 1;
     }
 }
@@ -198,15 +200,15 @@ insert_car(2,facing, y,x)</label>
 		<transition id="id24">
 			<source ref="id18"/>
 			<target ref="id19"/>
-			<label kind="assignment" x="-221" y="153">insert_car(3, facing, y, x)</label>
+			<label kind="assignment" x="-221" y="153">insert_truck(3, facing, y, x)</label>
 		</transition>
 		<transition id="id25">
 			<source ref="id20"/>
 			<target ref="id20"/>
 			<label kind="guard" x="-119" y="-238">(x&lt;4)&amp;&amp;(world[y][x+3]==0)</label>
-			<label kind="assignment" x="-119" y="-212">delete_car(3,facing,y,x),
+			<label kind="assignment" x="-119" y="-212">delete_truck(3,facing,y,x),
 x++,
-insert_car(3,facing,y,x)</label>
+insert_truck(3,facing,y,x)</label>
 			<nail x="8" y="-153"/>
 			<nail x="8" y="-51"/>
 		</transition>
@@ -214,9 +216,9 @@ insert_car(3,facing,y,x)</label>
 			<source ref="id20"/>
 			<target ref="id20"/>
 			<label kind="guard" x="-381" y="-255">x&gt;=1</label>
-			<label kind="assignment" x="-441" y="-230">delete_car(3,facing,y,x),
+			<label kind="assignment" x="-441" y="-230">delete_truck(3,facing,y,x),
 x--,
-insert_car(3,facing, y,x)</label>
+insert_truck(3,facing, y,x)</label>
 			<nail x="-373" y="-153"/>
 			<nail x="-374" y="-68"/>
 		</transition>
@@ -224,9 +226,9 @@ insert_car(3,facing, y,x)</label>
 			<source ref="id21"/>
 			<target ref="id21"/>
 			<label kind="guard" x="203" y="59">(y&lt;4)&amp;&amp;(world[y+3][x]==0)</label>
-			<label kind="assignment" x="203" y="85">delete_car(3,facing,y,x),
+			<label kind="assignment" x="203" y="85">delete_truck(3,facing,y,x),
 y++,
-insert_car(3,facing,y,x)</label>
+insert_truck(3,facing,y,x)</label>
 			<nail x="229" y="51"/>
 			<nail x="382" y="51"/>
 		</transition>
@@ -234,9 +236,9 @@ insert_car(3,facing,y,x)</label>
 			<source ref="id21"/>
 			<target ref="id21"/>
 			<label kind="guard" x="263" y="-297">y&gt;=1</label>
-			<label kind="assignment" x="212" y="-281">delete_car(3,facing,y,x),
+			<label kind="assignment" x="212" y="-281">delete_truck(3,facing,y,x),
 y--,
-insert_car(3,facing,y,x)</label>
+insert_truck(3,facing,y,x)</label>
 			<nail x="194" y="-217"/>
 			<nail x="390" y="-217"/>
 		</transition>
