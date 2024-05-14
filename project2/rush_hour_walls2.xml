@@ -3,7 +3,9 @@
 <nta>
 	<declaration>// Place global declarations here.
 int world[6][6] = {{0,0,0,0,0,4},{0,0,0,0,0,0},{0,0,0,0,0,0},{0,0,0,0,0,0},{0,0,0,0,0,0},{0,0,0,0,4,0}};
-int move = 0;
+clock move = 0;
+clock action = 0;
+clock truckAction = 0;
 
 void insert_rcar(int length,int facing, int y, int x){
     if (facing == 0){
@@ -94,7 +96,7 @@ bool fwd_check_y(int y, int x){
 		<declaration>// Place local declarations here.
 
 //if facing = 0 that means our vehicle is oriented in x coordinates
-</declaration>
+int car_time = 1;</declaration>
 		<location id="id0" x="0" y="-8">
 			<committed/>
 		</location>
@@ -108,22 +110,24 @@ bool fwd_check_y(int y, int x){
 		<transition id="id3">
 			<source ref="id1"/>
 			<target ref="id1"/>
-			<label kind="guard" x="238" y="-263">(x &lt; 4)&amp;&amp;(fwd_check_x(y,x))</label>
+			<label kind="guard" x="238" y="-263">(x &lt; 4)&amp;&amp;(fwd_check_x(y,x))&amp;&amp;(action&gt;=car_time)</label>
 			<label kind="assignment" x="238" y="-212">delete_car(2,facing,y,x),
 x++,
 insert_rcar(2,facing,y,x),
-move++</label>
+
+action=0</label>
 			<nail x="229" y="-306"/>
 			<nail x="229" y="-110"/>
 		</transition>
 		<transition id="id4">
 			<source ref="id1"/>
 			<target ref="id1"/>
-			<label kind="guard" x="-476" y="-280">(x &gt;= 1)&amp;&amp;(back_check_x(y,x))</label>
+			<label kind="guard" x="-476" y="-280">(x &gt;= 1)&amp;&amp;(back_check_x(y,x))&amp;&amp;action&gt;=car_time</label>
 			<label kind="assignment" x="-450" y="-255">delete_car(2,facing,y,x),
 x--,
 insert_rcar(2,facing, y,x),
-move++</label>
+
+action=0</label>
 			<nail x="-229" y="-323"/>
 			<nail x="-229" y="-102"/>
 		</transition>
@@ -143,10 +147,12 @@ move++</label>
 	<template>
 		<name>car</name>
 		<parameter>const int[0,1] facing, int[0,5] y, int[0,5] x</parameter>
+		<declaration>int car_time = 1;</declaration>
 		<location id="id7" x="-42" y="493">
 			<committed/>
 		</location>
 		<location id="id8" x="-42" y="349">
+			<committed/>
 		</location>
 		<location id="id9" x="-323" y="204">
 		</location>
@@ -156,44 +162,48 @@ move++</label>
 		<transition id="id11">
 			<source ref="id10"/>
 			<target ref="id10"/>
-			<label kind="guard" x="144" y="348">(y&lt;4)&amp;&amp;(fwd_check_y(y,x))</label>
+			<label kind="guard" x="144" y="348">(y&lt;4)&amp;&amp;(fwd_check_y(y,x))&amp;&amp;(action&gt;=car_time)</label>
 			<label kind="assignment" x="144" y="374">delete_car(2,facing,y,x),
 y++,
 insert_car(2,facing,y,x),
-move++</label>
+
+action=0</label>
 			<nail x="170" y="340"/>
 			<nail x="323" y="340"/>
 		</transition>
 		<transition id="id12">
 			<source ref="id10"/>
 			<target ref="id10"/>
-			<label kind="guard" x="204" y="-8">(y&gt;=1)&amp;&amp;(back_check_y(y,x))</label>
+			<label kind="guard" x="204" y="-8">(y&gt;=1)&amp;&amp;(back_check_y(y,x))&amp;&amp;(action&gt;=car_time)</label>
 			<label kind="assignment" x="153" y="8">delete_car(2,facing,y,x),
 y--,
 insert_car(2,facing,y,x),
-move++</label>
+
+action=0</label>
 			<nail x="135" y="72"/>
 			<nail x="331" y="72"/>
 		</transition>
 		<transition id="id13">
 			<source ref="id9"/>
 			<target ref="id9"/>
-			<label kind="guard" x="-238" y="8">(x&lt;4)&amp;&amp;(fwd_check_x(y,x))</label>
+			<label kind="guard" x="-238" y="8">(x&lt;4)&amp;&amp;(fwd_check_x(y,x))&amp;&amp;(action&gt;=car_time)</label>
 			<label kind="assignment" x="-238" y="34">delete_car(2,facing,y,x),
 x++,
 insert_car(2,facing,y,x),
-move++</label>
+
+action=0</label>
 			<nail x="-144" y="93"/>
 			<nail x="-144" y="204"/>
 		</transition>
 		<transition id="id14">
 			<source ref="id9"/>
 			<target ref="id9"/>
-			<label kind="guard" x="-527" y="8">(x&gt;=1)&amp;&amp;(back_check_x(y,x))</label>
-			<label kind="assignment" x="-578" y="34">delete_car(2,facing,y,x),
+			<label kind="guard" x="-663" y="8">(x&gt;=1)&amp;&amp;(back_check_x(y,x))&amp;&amp;(action&gt;=car_time)</label>
+			<label kind="assignment" x="-595" y="34">delete_car(2,facing,y,x),
 x--,
 insert_car(2,facing, y,x),
-move++</label>
+
+action=0</label>
 			<nail x="-510" y="102"/>
 			<nail x="-510" y="204"/>
 		</transition>
@@ -216,12 +226,14 @@ move++</label>
 	<template>
 		<name>truck</name>
 		<parameter>const int[0,1] facing, int[0,5] y, int[0,5] x</parameter>
+		<declaration>int truck_time = 1;</declaration>
 		<location id="id18" x="8" y="221">
 			<committed/>
 		</location>
 		<location id="id19" x="8" y="34">
+			<committed/>
 		</location>
-		<location id="id20" x="-178" y="-68">
+		<location id="id20" x="-204" y="-68">
 		</location>
 		<location id="id21" x="289" y="-85">
 		</location>
@@ -244,74 +256,78 @@ move++</label>
 		<transition id="id25">
 			<source ref="id20"/>
 			<target ref="id20"/>
-			<label kind="guard" x="-119" y="-238">(x&lt;3)&amp;&amp;(fwd_check_x(y,x+1))</label>
-			<label kind="assignment" x="-119" y="-212">delete_truck(3,facing,y,x),
+			<label kind="guard" x="-145" y="-238">(x&lt;3)&amp;&amp;(fwd_check_x(y,x+1))&amp;&amp;(truckAction&gt;=truck_time)</label>
+			<label kind="assignment" x="-145" y="-212">delete_truck(3,facing,y,x),
 x++,
 insert_truck(3,facing,y,x),
-move++</label>
-			<nail x="8" y="-153"/>
-			<nail x="8" y="-51"/>
+
+truckAction=0</label>
+			<nail x="-18" y="-153"/>
+			<nail x="-18" y="-51"/>
 		</transition>
 		<transition id="id26">
 			<source ref="id20"/>
 			<target ref="id20"/>
-			<label kind="guard" x="-442" y="-255">(x&gt;=1)&amp;&amp;(back_check_x(y,x))</label>
-			<label kind="assignment" x="-441" y="-230">delete_truck(3,facing,y,x),
+			<label kind="guard" x="-468" y="-255">(x&gt;=1)&amp;&amp;(back_check_x(y,x))&amp;&amp;(truckAction&gt;=truck_time)</label>
+			<label kind="assignment" x="-467" y="-230">delete_truck(3,facing,y,x),
 x--,
 insert_truck(3,facing, y,x),
-move++</label>
-			<nail x="-373" y="-153"/>
-			<nail x="-374" y="-68"/>
+
+truckAction=0</label>
+			<nail x="-399" y="-153"/>
+			<nail x="-400" y="-68"/>
 		</transition>
 		<transition id="id27">
 			<source ref="id21"/>
 			<target ref="id21"/>
-			<label kind="guard" x="203" y="59">(y&lt;3)&amp;&amp;(fwd_check_y(y+1,x))</label>
+			<label kind="guard" x="203" y="59">(y&lt;3)&amp;&amp;(fwd_check_y(y+1,x))&amp;&amp;(truckAction&gt;=truck_time)</label>
 			<label kind="assignment" x="203" y="85">delete_truck(3,facing,y,x),
 y++,
 insert_truck(3,facing,y,x),
-move++</label>
+
+truckAction=0</label>
 			<nail x="229" y="51"/>
 			<nail x="382" y="51"/>
 		</transition>
 		<transition id="id28">
 			<source ref="id21"/>
 			<target ref="id21"/>
-			<label kind="guard" x="263" y="-297">(y&gt;=1)&amp;&amp;(back_check_y(y,x))</label>
+			<label kind="guard" x="263" y="-297">(y&gt;=1)&amp;&amp;(back_check_y(y,x))&amp;&amp;(truckAction&gt;=truck_time)</label>
 			<label kind="assignment" x="212" y="-281">delete_truck(3,facing,y,x),
 y--,
 insert_truck(3,facing,y,x),
-move++</label>
+
+truckAction=0</label>
 			<nail x="194" y="-217"/>
 			<nail x="390" y="-217"/>
 		</transition>
 	</template>
 	<system>//car decl- facing, y,x
-//facing 0 means along x axis
 P_1 = red_car(0,2,1);
 
-c1 = car(0,0,0);
-c2 = car(1,0,3);
-c3 = car(1,0,4);
-c4 = car(1,2,0);
-c5 = car(1,2,3);
-c6 = car(1,3,2);
-c7 = car(0,3,4);
-c8 = car(0,4,3);
+c0 = car(0,0,0);
+c1 = car(1,0,3);
+c2 = car(1,0,4);
+c3 = car(1,2,0);
+c4 = car(1,2,3);
+c5 = car(1,3,2);
+c6 = car(0,3,4);
+c7 = car(0,4,3);
+c8 = car(0,5,1);
 c9 = car(1,4,5);
-c10 = car(0,5,1);
 
-t1 = truck(0,1,0);
+t0 = truck(0,1,0);
+
 // List one or more processes to be composed into a system.
-system P_1, c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,t1;
+system P_1, c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,t0;
 </system>
 	<queries>
 		<query>
 			<formula>E&lt;&gt;P_1.win</formula>
 			<comment/>
-			<option key="--diagnostic" value="1"/>
-			<result outcome="success" type="quality" timestamp="2024-05-14 16:03:20 +0200">
-				<option key="--diagnostic" value="1"/>
+			<option key="--diagnostic" value="2"/>
+			<result outcome="success" type="quality" timestamp="2024-05-14 16:43:40 +0200">
+				<option key="--diagnostic" value="2"/>
 			</result>
 		</query>
 	</queries>
