@@ -13,4 +13,4 @@ rush_hour_time - puzzle where truck moves for 5 seconds and cars for 2 seconds (
 RandL - Two hand problem\
 rush_hour_walls1 - puzzle with walls problem 1 (see Figure 3)\
 rush_hour_walls2 - puzzle with walls problem 2 (see Figure 4)
-(see the reference puzzles in [images](project2/images/)
+(see the reference puzzles in [images](/images))
