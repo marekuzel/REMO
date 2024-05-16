@@ -95,7 +95,7 @@ bool fwd_check_y(int y, int x){
 		<declaration>// Place local declarations here.
 
 //if facing = 0 that means our vehicle is oriented in x coordinates
-int car_time = 1;</declaration>
+int car_time = 2;</declaration>
 		<location id="id0" x="0" y="-8">
 			<committed/>
 		</location>
@@ -152,7 +152,7 @@ insert_rcar(2,facing, y,x)</label>
 	<template>
 		<name>car</name>
 		<parameter>const int[0,1] facing, int[0,5] y, int[0,5] x</parameter>
-		<declaration>int car_time = 1;</declaration>
+		<declaration>int car_time = 2;</declaration>
 		<location id="id9" x="-42" y="493">
 			<committed/>
 		</location>
@@ -243,7 +243,7 @@ insert_car(2,facing, y,x)</label>
 	<template>
 		<name>truck</name>
 		<parameter>const int[0,1] facing, int[0,5] y, int[0,5] x</parameter>
-		<declaration>int truck_time = 1;
+		<declaration>int truck_time = 5;
 </declaration>
 		<location id="id24" x="8" y="221">
 			<committed/>
@@ -356,8 +356,8 @@ system P_1, t13, c1,c14,c4,t5,t6,c16,c2,c18,c24,c17,c3;
 			<formula>E&lt;&gt;P_1.win</formula>
 			<comment/>
 			<option key="--diagnostic" value="2"/>
-			<result outcome="success" type="quality" timestamp="2024-05-16 19:41:50 +0200">
-				<option key="--diagnostic" value="1"/>
+			<result outcome="success" type="quality" timestamp="2024-05-16 19:46:11 +0200">
+				<option key="--diagnostic" value="2"/>
 			</result>
 		</query>
 	</queries>
